@@ -1,0 +1,212 @@
+{
+  "verified_at": "2026-09-07",
+  "requirements_source": "https://developer.repebble.com/dashboard",
+  "figma": "https://www.figma.com/design/84cY01bc17U2g9tjW3gz72?node-id=34-2",
+  "screenshots": "Actual emulator renders using local silent fixtures; not public-service delivery evidence.",
+  "assets": [
+    {
+      "path": "banners/pond-aplite-720x320.png",
+      "width": 720,
+      "height": 320,
+      "bytes": 22003,
+      "sha256": "f89f02eada9e7c3dde60fffe35f7a053898fda012fa9b07caa1690a0badebd6b"
+    },
+    {
+      "path": "banners/pond-basalt-720x320.png",
+      "width": 720,
+      "height": 320,
+      "bytes": 22292,
+      "sha256": "85055e503b1ad3d017d4e5cbbb6d9903f937311c7e0fc4f0b7b1160baa8fa1e2"
+    },
+    {
+      "path": "banners/pond-chalk-720x320.png",
+      "width": 720,
+      "height": 320,
+      "bytes": 24600,
+      "sha256": "7932397757eff482cad0b087a68e4b0e483208a4c26316879141adb032ca6292"
+    },
+    {
+      "path": "banners/pond-diorite-720x320.png",
+      "width": 720,
+      "height": 320,
+      "bytes": 21998,
+      "sha256": "b2b48bb03a6d5442dd4c14db0ba2492667e88b31070cc4e69669a272a6813099"
+    },
+    {
+      "path": "banners/pond-emery-720x320.png",
+      "width": 720,
+      "height": 320,
+      "bytes": 21964,
+      "sha256": "068f3272ce9be116f18d3cc9307721ad74a7fc925c81633b7fdc73f42543353f"
+    },
+    {
+      "path": "banners/pond-flint-720x320.png",
+      "width": 720,
+      "height": 320,
+      "bytes": 21998,
+      "sha256": "b2b48bb03a6d5442dd4c14db0ba2492667e88b31070cc4e69669a272a6813099"
+    },
+    {
+      "path": "banners/pond-gabbro-720x320.png",
+      "width": 720,
+      "height": 320,
+      "bytes": 25111,
+      "sha256": "36047a12b91132cfa5c3f30a795ad0f6be8da140984ffbd77fb6074782d4899e"
+    },
+    {
+      "path": "icons/pond-144.png",
+      "width": 144,
+      "height": 144,
+      "bytes": 4136,
+      "sha256": "ca648384b0181fdde9cc5aed9828c1182b6f3d66154d642ee6038cea2c3a0c1a"
+    },
+    {
+      "path": "icons/pond-512.png",
+      "width": 512,
+      "height": 512,
+      "bytes": 14109,
+      "sha256": "96f8bdb3986b3866c1d70dec270353af3ae66db7b8bbdbcd8f6777334676d2cd"
+    },
+    {
+      "path": "icons/pond-80.png",
+      "width": 80,
+      "height": 80,
+      "bytes": 2398,
+      "sha256": "0c99155acd505cc4fae3f95c7d2c86e1001da88090eb6a453542ea3e838789f4"
+    },
+    {
+      "path": "screenshots/aplite-ripple.png",
+      "width": 144,
+      "height": 168,
+      "bytes": 1251,
+      "sha256": "dbaf61516b60962431ad0313337d30d3e7d49bee582961a8b146eec08d837978"
+    },
+    {
+      "path": "screenshots/aplite-still.png",
+      "width": 144,
+      "height": 168,
+      "bytes": 1153,
+      "sha256": "352e59bab57edd7210d544c62f7bd31fa6967af162893cc06871bc24c4a879da"
+    },
+    {
+      "path": "screenshots/basalt-ripple.png",
+      "width": 144,
+      "height": 168,
+      "bytes": 1234,
+      "sha256": "81b092ae9f52b9de35b204f98acb0d62b3256d9c09702c4bb67c27f373246a4f"
+    },
+    {
+      "path": "screenshots/basalt-still.png",
+      "width": 144,
+      "height": 168,
+      "bytes": 1135,
+      "sha256": "86114242fa2f4cd5031ae289c5c3132c0d2db34165cd4c4945976b442c2b6f06"
+    },
+    {
+      "path": "screenshots/chalk-ripple.png",
+      "width": 180,
+      "height": 180,
+      "bytes": 1598,
+      "sha256": "3cf1201418351d00dc33d52672903904938583787fefaa46f785d7baa2eece11"
+    },
+    {
+      "path": "screenshots/chalk-still.png",
+      "width": 180,
+      "height": 180,
+      "bytes": 1503,
+      "sha256": "d8496fd68932a57848e86b1e4b5457513343145653847b4a571d5562449f9499"
+    },
+    {
+      "path": "screenshots/diorite-ripple.png",
+      "width": 144,
+      "height": 168,
+      "bytes": 1287,
+      "sha256": "6ef8e11d7d925597d0630322a94be9e5414e9de4272a88c4c753714241db74bc"
+    },
+    {
+      "path": "screenshots/diorite-still.png",
+      "width": 144,
+      "height": 168,
+      "bytes": 1187,
+      "sha256": "ceb463ae0d3cb2328b9e750c6ce132d67d8b22dbb7c8e681cb147940519daf91"
+    },
+    {
+      "path": "screenshots/emery-ripple.png",
+      "width": 200,
+      "height": 228,
+      "bytes": 1991,
+      "sha256": "0de346ee87c81b4a551b756f09d9c69ae4fe6e1ee0b1bdda3cef05b4da9be3be"
+    },
+    {
+      "path": "screenshots/emery-still.png",
+      "width": 200,
+      "height": 228,
+      "bytes": 1793,
+      "sha256": "d545a31959baca19e8d6a4e476519a8cf3de4fe3c58efbb6b28c28ff73a8921b"
+    },
+    {
+      "path": "screenshots/flint-ripple.png",
+      "width": 144,
+      "height": 168,
+      "bytes": 1287,
+      "sha256": "6ef8e11d7d925597d0630322a94be9e5414e9de4272a88c4c753714241db74bc"
+    },
+    {
+      "path": "screenshots/flint-still.png",
+      "width": 144,
+      "height": 168,
+      "bytes": 1187,
+      "sha256": "ceb463ae0d3cb2328b9e750c6ce132d67d8b22dbb7c8e681cb147940519daf91"
+    },
+    {
+      "path": "screenshots/gabbro-ripple.png",
+      "width": 260,
+      "height": 260,
+      "bytes": 3217,
+      "sha256": "1550bdb9f021e78888ef2a764cac0c81ba8be229716346957336cc9f68eb45fd"
+    },
+    {
+      "path": "screenshots/gabbro-still.png",
+      "width": 260,
+      "height": 260,
+      "bytes": 3052,
+      "sha256": "7d42ad4dc9fa38521400fbf76d79c27a15bfc6c2f6f9f2f7ac9d7cf448ff749e"
+    },
+    {
+      "path": "screenshots-overview.png",
+      "width": 796,
+      "height": 1120,
+      "bytes": 28586,
+      "sha256": "d7245b1d5cd08a754b689324b7abf79d1434fa47ff339f2d6fd3f4c7a6d29923"
+    },
+    {
+      "path": "source/pond-mark.svg",
+      "width": 144,
+      "height": 144,
+      "bytes": 1133,
+      "sha256": "dced21c530b1232f48d41fc94a475364a90ef90cae3e2ba18d0e876c8c4d2c1d"
+    }
+  ],
+  "direction": "Quietly playful / little river stone",
+  "branding_revision": 2,
+  "banner_export": "Figma font-loaded canvas render at 1x; typography checked in every exported PNG.",
+  "watch_source_base_commit": "bf1c9e14a088587bef9ccb2749f38c6b05c8a33f",
+  "watch_source_state": "Uncommitted character implementation; source and build hashes identify this capture.",
+  "watch_sources": {
+    "watch/src/c/art-data.h": "e7b0f0681b0bb7f5aee88cbcd7c5d5c0cae3432de1ec680e79a4dd2aad11eb36",
+    "watch/src/c/art.c": "c8c358828fda7a8d915bff7247f09b20712eb64a4bfac07c7ba7600bbf07c0b5",
+    "watch/src/c/art.h": "7b145bf5b713dfb8640a40a0720b0fc2469a64079d3be542796faed63160e870",
+    "watch/src/c/drop_outbox.c": "e6fab5266e5ed8cf3397382631339bf97d9cc7ae6ef026ac7afcdb4273ef7583",
+    "watch/src/c/drop_outbox.h": "096e41af471f2e48cdb1a45912ea33a5e7912e41f007e05059f99bec9a0a0ad1",
+    "watch/src/c/gesture.c": "ea710ebe8cb12376c5584656159287190f3d65bf5fa6aa8811ecdaae732489bb",
+    "watch/src/c/gesture.h": "52daf96cc8bb5d3692efb5c376ee7e9fb73c0eb5b274be8c26aa0dccc0116fd4",
+    "watch/src/c/glyphs.h": "26c7cf288164eac2a98019b01dbc179c50306b7cec1a6e33ec05be5b7a6d6a71",
+    "watch/src/c/policy.c": "35d7121e6f456d008bc6b67cae2d15bdeeceafcb42a79ee69f041f5e1f9a2dea",
+    "watch/src/c/policy.h": "7399d14d5c1feff95f75b34d1b6d291804765953bed4cf48728499b6f1be22a0",
+    "watch/src/c/watch.c": "ddeb32b47b1248233e5b25f72b9019dfc6d654265174a280b08d8b373bbebdfe",
+    "watch/src/pkjs/config.js": "7100db1356a3a03c01fa9a85b9f9df5c867eeefe83f155ba92afe96659ea2cdb",
+    "watch/src/pkjs/env.js": "c0f93e7326c183aa3e91acdc5c957c7b5a982ee06984b2a7bfdd04c90f260678",
+    "watch/src/pkjs/index.js": "baaec6030c3f4720cce879f4a365dda50db55ef19b2ce7bcf20787cc99fa52ab"
+  },
+  "watch_bundle_sha256": "7f7c972997bca85718fd8f727d60ced3f9847ce61bf2bc87d47117bf4e1955c2"
+}

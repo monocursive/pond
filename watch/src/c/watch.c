@@ -1,5 +1,6 @@
-#include "gesture.h"
+#include "art.h"
 #include "drop_outbox.h"
+#include "gesture.h"
 #include "glyphs.h"
 #include "policy.h"
 #include <pebble.h>
@@ -28,7 +29,7 @@ static void update_sampling(void) {
     sampling = false;
   }
 }
-static int animation, transient;
+static int animation = 11, transient;
 static bool persist_budget(void) {
   return persist_write_data(P_BUDGET, &budget, sizeof(budget)) ==
          sizeof(budget);
@@ -197,9 +198,9 @@ static void draw(Layer *layer, GContext *ctx) {
   strftime(clock, sizeof(clock), clock_is_24h_style() ? "%H:%M" : "%I:%M", t);
   static const char *days[] = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
   snprintf(date, sizeof(date), "%s %02d", days[t->tm_wday], t->tm_mday);
-  graphics_context_set_fill_color(ctx, GColorWhite);
+  graphics_context_set_fill_color(ctx, pond_background());
   graphics_fill_rect(ctx, bounds, 0, GCornerNone);
-  graphics_context_set_fill_color(ctx, GColorBlack);
+  graphics_context_set_fill_color(ctx, pond_ink());
   int scale = w >= 260   ? 8
               : w >= 200 ? 7
                          : 5,
@@ -208,68 +209,19 @@ static void draw(Layer *layer, GContext *ctx) {
   pixel_text(ctx, clock, top + 27, scale, w);
   if (!clock_is_24h_style())
     pixel_text(ctx, t->tm_hour < 12 ? "AM" : "PM", top + 29 + scale * 7, 1, w);
-  int stone_y = PBL_IF_ROUND_ELSE(w >= 260 ? 142 : 96, h >= 228 ? 118 : 92),
-      factor = w >= 200 ? 2 : 1;
-  if (transient == 1)
-    stone_y -= 6;
-  int cx = w / 2, pond_y = stone_y + 30 * factor;
   bool live = expires > (uint32_t)now && has_other;
-  graphics_context_set_stroke_color(ctx, GColorBlack);
-  graphics_draw_line(ctx, GPoint(cx - 38 * factor, pond_y),
-                     GPoint(cx + 38 * factor, pond_y));
-  if (!connected || (settings.joined && now - last_sync > 120)) {
-    graphics_context_set_fill_color(ctx, GColorWhite);
-    graphics_fill_rect(ctx, GRect(cx - 5, pond_y - 1, 10, 3), 0, GCornerNone);
+  bool offline =
+      !connected || (settings.joined && (!last_sync || now - last_sync > 120));
+  int art_width = w >= 260 ? 180 : w >= 200 ? 150 : 116;
+  int art_y = PBL_IF_ROUND_ELSE(w >= 260 ? 135 : 96, h >= 228 ? 108 : 80);
+  int art_height = PBL_IF_ROUND_ELSE(w >= 260 ? 88 : 48, h >= 228 ? 86 : 60);
+  if (!clock_is_24h_style() && !PBL_IF_ROUND_ELSE(true, false) && h < 228) {
+    art_y += 12;
+    art_height -= 12;
   }
-  if (live) {
-    int ring = animation < 12 && !settings.reduced ? animation : 11,
-        rw = (48 + ring * 4) * factor;
-    if (rw > w - 28)
-      rw = w - 28;
-    GPoint previous = GPoint(cx + rw / 2, pond_y);
-    for (int a = 1; a <= 48; a++) {
-      int angle = a * TRIG_MAX_ANGLE / 48;
-      GPoint next =
-          GPoint(cx + (cos_lookup(angle) * (rw / 2)) / TRIG_MAX_RATIO,
-                 pond_y + (sin_lookup(angle) * 8 * factor) / TRIG_MAX_RATIO);
-      graphics_draw_line(ctx, previous, next);
-      previous = next;
-    }
-  }
-  GPoint points[6] = {{-18, -1}, {-10, -12}, {9, -14},
-                      {19, -4},  {12, 10},   {-12, 10}};
-  if (settings.shape == 1) {
-    points[1].y = -7;
-    points[2].y = -8;
-    points[4].y = 6;
-  }
-  if (settings.shape == 2) {
-    points[1].x = -3;
-    points[1].y = -18;
-    points[4].x = 6;
-  }
-  for (int i = 0; i < 6; i++) {
-    points[i].x *= factor;
-    points[i].y *= factor;
-  }
-  GPathInfo info = {.num_points = 6, .points = points};
-  GPath *path = gpath_create(&info);
-  if (path) {
-    gpath_move_to(path, GPoint(cx, stone_y + 14 * factor));
-    graphics_context_set_fill_color(
-        ctx, PBL_IF_COLOR_ELSE(settings.palette == 1 ? GColorBrass
-                                                     : GColorFromHEX(0x005555),
-                               GColorBlack));
-    gpath_draw_filled(ctx, path);
-    graphics_context_set_stroke_color(ctx, GColorBlack);
-    gpath_draw_outline(ctx, path);
-    gpath_destroy(path);
-    graphics_context_set_fill_color(ctx, GColorWhite);
-    graphics_fill_rect(
-        ctx,
-        GRect(cx - 6 * factor, stone_y + 5 * factor, 8 * factor, 3 * factor), 0,
-        GCornerNone);
-  }
+  pond_draw(ctx, GRect((w - art_width) / 2, art_y, art_width, art_height),
+            settings.shape, settings.palette, settings.seed, live, offline,
+            settings.reduced ? 11 : animation, transient == 1);
   const char *status = "STILL";
   if (!settings.joined)
     status = "SETUP";
@@ -289,7 +241,7 @@ static void draw(Layer *layer, GContext *ctx) {
     status = "QUIET";
   else if (live)
     status = recent_echo ? "ECHO" : "RIPPLE";
-  graphics_context_set_fill_color(ctx, GColorBlack);
+  graphics_context_set_fill_color(ctx, pond_ink());
   pixel_text(ctx, status, PBL_IF_ROUND_ELSE(h - 30, h - 24), 2, w);
 }
 static int32_t value(DictionaryIterator *iter, int key, int32_t fallback) {

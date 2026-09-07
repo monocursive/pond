@@ -1,0 +1,56 @@
+{
+  "fileKey": "84cY01bc17U2g9tjW3gz72",
+  "page": "34:2",
+  "icons": {
+    "80": "34:4",
+    "144": "34:3",
+    "512": "34:5"
+  },
+  "mark": "45:9",
+  "banners": {
+    "basalt": "34:6",
+    "aplite": "47:18",
+    "chalk": "47:37",
+    "diorite": "47:56",
+    "emery": "47:75",
+    "flint": "47:94",
+    "gabbro": "47:113"
+  },
+  "screenshotsOverview": "40:2",
+  "screenshots": {
+    "aplite": [
+      "41:4",
+      "41:5"
+    ],
+    "basalt": [
+      "41:8",
+      "41:9"
+    ],
+    "chalk": [
+      "41:1708",
+      "41:1709"
+    ],
+    "diorite": [
+      "41:1712",
+      "41:1713"
+    ],
+    "emery": [
+      "41:1716",
+      "41:1717"
+    ],
+    "flint": [
+      "41:1720",
+      "41:1721"
+    ],
+    "gabbro": [
+      "41:1724",
+      "41:1725"
+    ]
+  },
+  "direction": "Quietly playful / little river stone",
+  "archive": {
+    "v1_icon": "45:2",
+    "v1_banner": "45:17"
+  },
+  "bannerCharacter": "46:2"
+}

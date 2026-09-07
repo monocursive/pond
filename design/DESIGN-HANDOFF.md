@@ -2,6 +2,8 @@
 
 **Date:** 2026-09-07 · **Status:** first design iteration, ready for review and a physical watch prototype.
 
+**Character revision, implemented 2026-09-07:** the approved smiling river stone, broken ripples, dark pond background and warm palette supersede the faceted-stone direction below. The native app retains the original pixel clock, state labels and comfort behaviour. Current implementation screenshots and banners are on Figma page **07 · Appstore assets** and in [the refreshed asset pack](store/README.md); earlier pages and exports remain the initial design study. See [watch artwork notes](../watch/README.md) for the vector source and conversion.
+
 [Open the editable Figma file](https://www.figma.com/design/84cY01bc17U2g9tjW3gz72?node-id=16-1334)
 
 The release contract remains [FIRST-RELEASE.md](../docs/FIRST-RELEASE.md). This design makes its watchface and phone settings concrete; it does not implement or deploy them.
@@ -41,6 +43,7 @@ Round compositions reposition the time, pebble and footer inside the circle; the
 | 04 · States & gestures | Annotated state storyboard and linked gesture simulation |
 | 05 · Phone settings | 14 settings screens; reusable action/setting components; join, comfort and leave flows |
 | 06 · Handoff | Behaviour, implementation boundaries and physical verification gates |
+| 07 · Appstore assets | Dashboard-sized icons, seven banners, and 14 actual emulator screenshots; see [the upload pack](store/README.md) |
 
 The editable component families are Pond / Pebble, Pond / Watchface 144, Pond / Watchface adapted, Pond / Action and Pond / Setting. Avatar instances remain linked to their master components; colour semantics alias palette primitives. Fixed watch artwork geometry is intentionally positioned on a pixel canvas. Phone cards, rows, buttons and documentation use auto-layout.
 
