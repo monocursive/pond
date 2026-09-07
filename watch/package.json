@@ -1,0 +1,60 @@
+{
+  "name": "pond-watch",
+  "author": "Micha\u00ebl / Monocursive",
+  "version": "0.1.0",
+  "keywords": [
+    "pebble-app"
+  ],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "Pond",
+    "uuid": "c0625af0-2947-41dd-b7cc-687d7d2eddcb",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite",
+      "emery",
+      "flint",
+      "gabbro"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "Type",
+      "Revision",
+      "Joined",
+      "Gentle",
+      "QuietStart",
+      "QuietEnd",
+      "AllDay",
+      "PauseUntil",
+      "Reduced",
+      "Tick",
+      "Seed",
+      "Shape",
+      "Palette",
+      "Bundle",
+      "Expires",
+      "Other",
+      "Echo",
+      "Snapshot",
+      "ServerTime",
+      "Request",
+      "Source",
+      "Result",
+      "Preview",
+      "Applied"
+    ],
+    "resources": {
+      "media": []
+    },
+    "capabilities": [
+      "configurable"
+    ]
+  }
+}
