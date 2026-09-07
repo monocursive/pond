@@ -89,7 +89,7 @@ Echoes address a bundle. They do not choose a featured avatar or form a relation
 ### Network and limits
 
 - Generate a unique request ID before submission. Duplicate IDs return the original result without another contribution or confirmation tick.
-- Allow at most one accepted contribution per installation per 30 seconds, and 40 in a rolling 24 hours. Echoes count toward both limits. Limits are ceilings, never displayed goals.
+- Allow at most one accepted contribution per installation per 10 seconds, and 100 in a rolling 24 hours. Echoes count toward both limits. Limits are ceilings, never displayed goals.
 - A deliberate submission can be retried with the same ID for up to two minutes. After that, stop resending. No durable offline outbox of old drops.
 - A timed-out request may already have been accepted. Show an unknown result until reconciled; never substitute a fresh ID automatically.
 - Show “accepted” only after a server response confirms persistence. It means the drop entered the pond, not that another watch received it.

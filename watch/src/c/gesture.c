@@ -23,7 +23,9 @@ bool gesture_sample(Gesture *g, int16_t x, int16_t y, int16_t z, uint64_t at,
   }
   if (at < g->settle_until)
     return false;
-  if ((int64_t)dx * dx + (int64_t)dy * dy + (int64_t)dz * dz < 1800 * 1800 ||
+  // Physical Time 2 feedback: 1.8 g required an uncomfortable knock. Keep
+  // the two-peak timing/motor guards, but accept a lighter 0.9 g impulse.
+  if ((int64_t)dx * dx + (int64_t)dy * dy + (int64_t)dz * dz < 900 * 900 ||
       at - g->last_peak < 160)
     return false;
   g->last_peak = at;

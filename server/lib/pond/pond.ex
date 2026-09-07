@@ -82,7 +82,7 @@ defmodule Pond do
                 [id, at]
               )
 
-            if count >= 40 or (last && at - last < 30), do: Repo.rollback(:rate_limited)
+            if count >= 100 or (last && at - last < 10), do: Repo.rollback(:rate_limited)
             echo = valid_source(id, source, at)
             window_id = div(at, 60)
 

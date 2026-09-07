@@ -233,6 +233,10 @@ static void draw(Layer *layer, GContext *ctx) {
     status = "DROPPED";
   else if (transient == 4)
     status = "UNKNOWN";
+  else if (transient == 5)
+    status = "RATE LIMIT";
+  else if (transient == 6)
+    status = "NOT SENT";
   else if (!connected || !last_sync || now - last_sync > 120)
     status = "OFFLINE";
   else if (settings.pause_until == -1 || settings.pause_until > now)
@@ -348,10 +352,12 @@ static void inbox(DictionaryIterator *iter, void *context) {
       } else if (result == 2) {
         show(3, 4000);
         pending_request = 0;
+      } else if (result == 0) {
+        // The phone is still retrying. Preserve the original deadline.
+        transient = 2;
       } else {
-        show(4, result == 3 ? 8000 : 120000);
-        if (result == 3)
-          pending_request = 0;
+        show(result == 4 ? 5 : result == 5 ? 6 : 4, 8000);
+        pending_request = 0;
       }
     }
   } else if (type == K_PREVIEW && now - last_preview >= 10) {

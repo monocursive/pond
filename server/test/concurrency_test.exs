@@ -24,7 +24,7 @@ defmodule Pond.ConcurrencyTest do
     competing =
       1..8
       |> Task.async_stream(
-        fn _ -> db(fn -> Pond.drop(id, Ecto.UUID.generate(), nil, at + 30) end) end,
+        fn _ -> db(fn -> Pond.drop(id, Ecto.UUID.generate(), nil, at + 10) end) end,
         max_concurrency: 8
       )
       |> Enum.map(fn {:ok, r} -> r end)

@@ -2,6 +2,23 @@
 #include <assert.h>
 #include <stdio.h>
 int main(void) {
+  // A light pair missed by 0.1.0, with realistic 50 Hz return samples.
+  Gesture light = {0};
+  assert(!gesture_sample(&light, 0, 0, 1000, 1000, false));
+  assert(!gesture_sample(&light, 1000, 0, 1000, 1020, false));
+  assert(!gesture_sample(&light, 0, 0, 1000, 1040, false));
+  assert(!gesture_sample(&light, 0, 0, 1000, 1200, false));
+  assert(gesture_sample(&light, 1000, 0, 1000, 1280, false));
+  // Low-amplitude motion cannot become a drop, even at pairing intervals.
+  Gesture motion = {0};
+  for (uint64_t t = 1000; t < 5000; t += 20)
+    assert(!gesture_sample(&motion, (t / 20 % 2) * 600, 0, 1000, t, false));
+  // One light knock plus its immediate rebound is not two taps.
+  Gesture single = {0};
+  assert(!gesture_sample(&single, 0, 0, 1000, 1000, false));
+  assert(!gesture_sample(&single, 1100, 0, 1000, 1020, false));
+  assert(!gesture_sample(&single, 0, 0, 1000, 1040, false));
+  assert(!gesture_sample(&single, 0, 0, 1000, 1700, false));
   Gesture g = {0};
   assert(!gesture_sample(&g, 0, 0, 1000, 1000, false));
   assert(!gesture_sample(&g, 2200, 0, 1000, 1200, false));

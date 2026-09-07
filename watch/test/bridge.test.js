@@ -95,6 +95,12 @@ function bridge(saved) {
       assert.ok(next, "scheduled work");
       next.fn();
     },
+    runDelay(delay) {
+      const index = timers.findIndex(t => t.delay === delay);
+      assert.ok(index >= 0, "timer with expected delay");
+      timers.splice(index, 1)[0].fn();
+    },
+    countTimers(delay) { return timers.filter(t => t.delay === delay).length; },
   };
 }
 function joined() {
@@ -329,4 +335,89 @@ test("unavailable custom settings fall back without moving identity or claiming 
     assert.equal(b.state.deleting, true);
     assert.equal(b.state.credential, joined().credential);
   }
+});
+
+test("a lost acceptance receipt retries silently without posting a second drop", () => {
+  const b = bridge(joined());
+  b.listeners.ready();
+  b.run();
+  b.requests[0].respond(200, {version: 1, server_time: 100, cursor: "c"});
+  b.listeners.appmessage({payload: {Type: 3, Request: 17}});
+  b.run();
+  const id = JSON.parse(b.requests[1].body).request_id;
+  b.failNextMessage();
+  b.requests[1].respond(200, {request_id: id, accepted_at: 100});
+  assert.equal(b.messages.at(-1).Result, 1);
+  b.run(); // receipt retry, separate from HTTP work
+  assert.equal(b.messages.at(-1).Result, 2);
+  assert.equal(b.messages.at(-1).Request, 17);
+  assert.equal(b.requests.filter(r => r.method === "POST").length, 1);
+  b.listeners.appmessage({payload: {Type: 3, Request: 17}});
+  assert.equal(b.messages.at(-1).Result, 2);
+  assert.equal(b.state.pending, null);
+});
+
+test("cached receipts survive restart, expire, and stop after leaving", () => {
+  const s = joined(), t = Math.floor(Date.now() / 1000);
+  s.lastReceipt = {watchId: 17, result: 1, created: t, expires: t + 120};
+  const b = bridge(s);
+  b.listeners.ready();
+  assert.equal(b.messages.at(-1).Result, 2);
+  const old = bridge({...s, lastReceipt: {...s.lastReceipt, expires: t - 1}});
+  old.listeners.ready();
+  assert.equal(old.messages.some(m => m.Type === 5), false);
+  const left = bridge({...s, settings: {...s.settings, joined: false}});
+  left.listeners.ready();
+  assert.equal(left.messages.some(m => m.Type === 5), false);
+});
+
+test("definitive rate limits and rejections have distinct receipts", () => {
+  for (const [status, result] of [[429, 4], [422, 5]]) {
+    const b = bridge(joined());
+    b.listeners.ready();
+    b.listeners.appmessage({payload: {Type: 3, Request: 18}});
+    b.run();
+    b.requests[0].respond(status, {error: "rejected"});
+    assert.equal(b.messages.at(-1).Result, result);
+    assert.equal(b.state.pending, null);
+  }
+});
+
+test("a rejection after a lost HTTP response cannot claim the drop was not sent", () => {
+  const b = bridge(joined());
+  b.listeners.ready();
+  b.listeners.appmessage({payload: {Type: 3, Request: 19}});
+  b.run();
+  b.requests[0].respond(0, null);
+  b.run();
+  b.requests[1].respond(429, {error: "rate_limited"});
+  assert.equal(b.messages.at(-1).Result, 3);
+});
+
+test("receipt retries are bounded and an intervening leave cancels delivery", () => {
+  function acceptedWithLostReceipt() {
+    const b = bridge(joined());
+    b.listeners.ready();
+    b.listeners.appmessage({payload: {Type: 3, Request: 20}});
+    b.run();
+    b.failNextMessage();
+    b.requests[0].respond(200, {
+      request_id: JSON.parse(b.requests[0].body).request_id, accepted_at: 100
+    });
+    return b;
+  }
+  const b = acceptedWithLostReceipt();
+  for (let i = 0; i < 3; i++) {
+    b.failNextMessage();
+    b.runDelay(1000);
+  }
+  assert.equal(b.messages.filter(m => m.Type === 5).length, 4);
+  assert.equal(b.countTimers(1000), 0);
+  const left = acceptedWithLostReceipt();
+  left.listeners.webviewclosed({response: encodeURIComponent(JSON.stringify({
+    action: "leave", settings: joined().settings, origin: "https://pond.example"
+  }))});
+  left.runDelay(1000);
+  assert.equal(left.messages.filter(m => m.Type === 5).length, 1);
+  assert.equal(left.state.lastReceipt, null);
 });

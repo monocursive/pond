@@ -37,7 +37,7 @@ pebble install --emulator aplite
 
 The bundle is `watch/build/watch.pbw`, compiled for Aplite, Basalt, Chalk, Diorite, Flint, Emery and Gabbro. Use `pebble install --phone <phone-ip>` for a physical phone with its developer connection enabled. The default origin in `watch/src/pkjs/env.js` is `https://pond.monocursive.com`. Self-hosters should change it and rebuild; local development can select another origin in settings. `127.0.0.1` on a phone points to the phone itself.
 
-The face starts locally, unjoined and silent. Open Pond's settings in the Pebble mobile app to join. Save settings, then reopen to inspect the watch acknowledgement. Two deliberate taps prepare a drop; another double-tap within two seconds cancels it. Gesture thresholds remain experimental. Switching away from Pond stops its watch-side activity.
+The face starts locally, unjoined and silent. Open Pond's settings in the Pebble mobile app to join. Save settings, then reopen to inspect the watch acknowledgement. Two physical taps on the watch prepare a drop; another double-tap within two seconds cancels it. This uses the accelerometer, not touchscreen input. Version 0.1.1 lowers the threshold after Time 2 feedback; gesture comfort and accidental triggers still need physical testing. Switching away from Pond stops its watch-side activity. Wait at least 10 seconds between drops (100 maximum in a rolling day). The watch distinguishes `RATE LIMIT` and `NOT SENT` from `UNKNOWN`, which means acceptance could not be confirmed.
 
 ## Check the implementation
 

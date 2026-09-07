@@ -2,7 +2,7 @@
 
 Pond runs at https://pond.monocursive.com on `ubuntu@pond.monocursive.com` (Ubuntu 26.04, amd64). Cloudflare DNS is **DNS only**. Kamal 2.12 manages one Phoenix container, a private Postgres 17 accessory, and the HTTPS proxy. The watch's default service origin points to this hostname.
 
-Verified on 2026-09-07: active version `pond-20260907-2`. A second Kamal deployment completed with all 13 sampled HTTPS readiness requests returning success. The previous app container is retained for rollback. All 19 server tests and 12 bridge tests pass; the watch bundle builds for all seven targets.
+Verified on 2026-09-07: active version `pond-20260907-4`, deployed through Kamal with a 10-second minimum gap and a ceiling of 100 accepted contributions per rolling 24 hours per installation. All 19 server tests pass, including rejection at 9 seconds, acceptance at 10 seconds, idempotency, acceptance of the first 100 contributions, rejection of the 101st, rolling expiry and concurrent submissions. The previous app image is retained for rollback. Watch 0.1.1 is published; its 17 bridge tests, three native suites and all seven SDK builds passed.
 
 ## Deploy from this checkout
 
@@ -48,4 +48,4 @@ The initial encrypted dump was copied off the VPS and decrypted/restored success
 
 ## Release boundary
 
-HTTPS, landing/settings pages, database readiness, and a two-installation register → drop → ripple → echo → delete cycle have been verified against the live service. These are synthetic API clients, not physical watches. The seven-platform PBW has the public origin; it has not been uploaded to the Pebble Store. Physical gesture, background phone delivery, comfort and battery validation remain required.
+HTTPS, landing/settings pages, database readiness, and a two-installation register → drop → ripple → echo → delete cycle have been verified against the live service. These are synthetic API clients, not physical watches. The seven-platform PBW has the public origin; see [Pebble Store releases](STORE-RELEASE.md) for published versions. Physical gesture, background phone delivery, comfort and battery validation remain required.

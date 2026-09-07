@@ -25,7 +25,7 @@ A production Mix release builds locally and inside the deployed Linux image. The
 ## Remaining public-release gates
 
 - Two physical watches and two phones complete the loop across locked/backgrounded iOS and Android, Bluetooth loss, relaunches, and service outages. Validate Authorization stripping on cross-origin redirects in each supported PebbleKit JS runtime.
-- Tune the 1,800 mg sample-delta threshold, 160 ms peak spacing, 600 ms double-tap interval, and 2.5-second motor settling interval from actual measurements. Current synthetic classifier tests cannot establish false-positive rates or battery cost.
+- Tune the 900 mg sample-delta threshold, 160 ms peak spacing, 600 ms double-tap interval, and 2.5-second motor settling interval from actual measurements. Version 0.1.1 lowers the threshold from 1,800 mg after a Time 2 wearer reported that hard knocks were necessary. Current synthetic classifier tests cannot establish false-positive rates or battery cost.
 - Record the spec's gesture, delivery and 48-hour battery experiments. Test firmware quiet mode, time changes and unknown clock/budget behavior on actual targets. Physical support remains unclaimed for all platforms.
 - Review settings under larger text/assistive technology, phone/watch timezone differences, system overlays and firmware text/clock preferences. Phone settings use system typography rather than bundling the Figma fonts.
 - Completed 2026-09-07: Kamal deployment with HTTPS, production secrets, private Postgres, migrations, readiness, and the public origin in the rebuilt watch bundle. Live synthetic clients completed registration, drop, ripple, echo and deletion. Physical phone/watch delivery remains unverified.

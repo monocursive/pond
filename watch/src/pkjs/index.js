@@ -75,6 +75,24 @@ function syncSettings() {
     Palette: s.palette
   });
 }
+function deliverReceipt(receipt, attempt) {
+  if (!state.settings.joined || state.deleting ||
+      state.lastReceipt !== receipt || now() >= receipt.expires ||
+      now() < receipt.created) return;
+  message({ Type: 5, Request: receipt.watchId,
+    Result: attempt && receipt.result === 1 ? 2 : receipt.result }, function (ok) {
+    if (!ok && attempt < 3) {
+      setTimeout(function () { deliverReceipt(receipt, attempt + 1); }, 1000);
+    }
+  });
+}
+function finishDrop(pending, result) {
+  state.pending = null;
+  state.lastReceipt = { watchId: pending.watchId, result: result,
+    created: now(), expires: now() + 120 };
+  save();
+  deliverReceipt(state.lastReceipt, 0);
+}
 function request(method, path, body, callback, authenticated) {
   busy = true;
   var xhr = new XMLHttpRequest(),
@@ -181,9 +199,7 @@ function work() {
   if (state.pending) {
     var pending = state.pending;
     if (now() - pending.created >= 120 || now() < pending.created) {
-      state.pending = null;
-      save();
-      message({ Type: 5, Request: pending.watchId, Result: 3 });
+      finishDrop(pending, 3);
       schedule(0);
       return;
     }
@@ -207,20 +223,15 @@ function work() {
           data.request_id === pending.id &&
           data.accepted_at
         ) {
-          state.pending = null;
-          save();
-          message({
-            Type: 5,
-            Request: pending.watchId,
-            Result: !pending.retried && !snapshot && !data.duplicate ? 1 : 2
-          });
+          finishDrop(pending,
+            !pending.retried && !snapshot && !data.duplicate ? 1 : 2);
           failures = 0;
           schedule(0);
         } else if (status === 401) expired();
         else if (status >= 400 && status < 500) {
-          state.pending = null;
-          save();
-          message({ Type: 5, Request: pending.watchId, Result: 3 });
+          // A definitive rejection is different from a lost response.
+          // After a previous uncertain attempt, acceptance is still possible.
+          finishDrop(pending, pending.retried ? 3 : status === 429 ? 4 : 5);
           schedule(60000);
         } else {
           pending.retried = true;
@@ -318,6 +329,7 @@ Pebble.addEventListener("ready", function () {
   if (state.pending) state.pending.retried = true;
   save();
   syncSettings();
+  if (state.lastReceipt) deliverReceipt(state.lastReceipt, 1);
   schedule(0);
 });
 Pebble.addEventListener("appmessage", function (e) {
@@ -340,7 +352,12 @@ Pebble.addEventListener("appmessage", function (e) {
       return;
     }
     // Remember the last watch request so AppMessage redelivery cannot create a second ID.
-    if (state.lastWatchId === p.Request) return;
+    if (state.lastWatchId === p.Request) {
+      if (state.lastReceipt && state.lastReceipt.watchId === p.Request)
+        deliverReceipt(state.lastReceipt, 1);
+      return;
+    }
+    state.lastReceipt = null;
     state.counter++;
     state.lastWatchId = p.Request;
     state.pending = {
@@ -411,6 +428,7 @@ Pebble.addEventListener("webviewclosed", function (e) {
       state.registered = false;
       state.counter = 0;
       state.lastWatchId = null;
+      state.lastReceipt = null;
       state.deleted = false;
       state.cursor = null;
       s.joined = true;
@@ -420,6 +438,7 @@ Pebble.addEventListener("webviewclosed", function (e) {
       s.gentle = false;
       state.deleting = !!state.credential;
       state.pending = null;
+      state.lastReceipt = null;
     } else if (result.action !== "save" || s.joined !== state.settings.joined)
       throw new Error("Invalid action");
     s.revision = state.settings.revision + 1;

@@ -51,7 +51,7 @@ sequenceDiagram
     PhoneB->>PhoenixAPI: POST /v1/drops - validate as echo or accept plain drop
 ```
 
-The installation/request UUID pair is the idempotency key. Retries reconcile the original receipt without creating another drop or replaying an acceptance tick. Acceptance checks the 30-second cooldown and 40 contributions per rolling 24 hours. An invalid or expired echo context is downgraded to a plain drop.
+The installation/request UUID pair is the idempotency key. Retries reconcile the original receipt without creating another drop or replaying an acceptance tick. Acceptance checks the 10-second cooldown and 100 contributions per rolling 24 hours. An invalid or expired echo context is downgraded to a plain drop.
 
 The aggregator finalises completed minute windows every 60 seconds and before polling. Advisory locks coordinate acceptance with finalisation; immutable bundle inserts tolerate repeated finalisation. Polling returns only the newest unseen live bundle, with an installation-scoped signed cursor. Issued context enables a later echo; recipient flags are computed from accepted contributions.
 

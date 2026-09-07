@@ -36,14 +36,14 @@ defmodule PondTest do
     request = Ecto.UUID.generate()
     assert {:ok, %{kind: "drop", duplicate: false}} = Pond.drop(id, request, nil, at)
     assert {:ok, %{kind: "drop", duplicate: true}} = Pond.drop(id, request, 999, at + 1)
-    assert {:error, :rate_limited} = Pond.drop(id, Ecto.UUID.generate(), nil, at + 29)
-    assert {:ok, _} = Pond.drop(id, Ecto.UUID.generate(), nil, at + 30)
+    assert {:error, :rate_limited} = Pond.drop(id, Ecto.UUID.generate(), nil, at + 9)
+    assert {:ok, _} = Pond.drop(id, Ecto.UUID.generate(), nil, at + 10)
   end
 
   test "rolling daily contribution ceiling", %{at: at} do
     {_, id} = user(at)
-    for n <- 0..39, do: assert({:ok, _} = Pond.drop(id, Ecto.UUID.generate(), nil, at + n * 30))
-    assert {:error, :rate_limited} = Pond.drop(id, Ecto.UUID.generate(), nil, at + 1200)
+    for n <- 0..99, do: assert({:ok, _} = Pond.drop(id, Ecto.UUID.generate(), nil, at + n * 10))
+    assert {:error, :rate_limited} = Pond.drop(id, Ecto.UUID.generate(), nil, at + 1000)
     assert {:ok, _} = Pond.drop(id, Ecto.UUID.generate(), nil, at + 86400)
   end
 

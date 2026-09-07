@@ -20,7 +20,7 @@ Settings open on the selected service. For a custom service, the bridge first ma
 
 All times are Unix seconds. Bundle IDs are `floor(accepted_at / 60)`. A bundle contains `id`, `starts_at`, `ends_at`, `expires_at`, `drops`, `echoes`, `has_other`, and `echo_answer`. These last two flags are computed for the authenticated installation without exposing contributors. Expiry is two minutes after the minute ends. Counts belong to one fixed window. A response contains at most the newest unseen live bundle. A cursor is signed, installation-scoped, and valid for 24 hours; a rejected cursor triggers a new silent snapshot.
 
-An echo is accepted only against an unexpired bundle issued to this installation that still contains another installation's contribution. Otherwise the same action is accepted as a plain drop. The actual classification is returned. The ID remains unchanged on retries, which stop after two minutes on the bridge. A receipt means persistence, not delivery to another wearer.
+An echo is accepted only against an unexpired bundle issued to this installation that still contains another installation's contribution. Otherwise the same action is accepted as a plain drop. The actual classification is returned. Accepted contributions (drops and echoes together) must be at least 10 seconds apart, with a ceiling of 100 per rolling 24 hours per installation. Same-ID retries reconcile the existing receipt before those limits are checked. The ID remains unchanged on retries, which stop after two minutes on the bridge. A receipt means persistence, not delivery to another wearer.
 
 Errors use `{version:1,error:<code>}`: 401 for missing/expired credentials, 410 for a revoked bootstrap, 422 for invalid requests/cursors, 429 for rate limits, and 503 for installation capacity. Ingress throttling and parser errors may use a minimal error body. Clients treat all errors visually and quietly. The request body limit is 4 KiB.
 
@@ -34,12 +34,14 @@ Errors use `{version:1,error:<code>}`: 401 for missing/expired credentials, 410 
 | 2 | Phone → watch | `ServerTime`, `Snapshot`, `Bundle`, `Expires`, `Other`, `Echo` |
 | 3 | Watch → phone | `Request` counter and captured `Source` bundle |
 | 4 | Watch → phone | `Applied` revision, resolved `PauseUntil`, current `Preview` eligibility |
-| 5 | Phone → watch | `Request` and `Result`: 0 unknown, 1 first acceptance, 2 reconciled acceptance without tick, 3 terminal quiet outcome |
+| 5 | Phone → watch | `Request` and `Result`: 0 retrying, 1 first acceptance, 2 reconciled acceptance without tick, 3 unresolved terminal outcome, 4 rate limited, 5 rejected |
 | 6 | Phone → watch | One immediate preview attempt; never retried |
 
 The normal state dictionary is eight 32-bit values: 89 bytes including dictionary/tuple overhead, below the 128-byte target. Settings use a larger 256-byte inbox; the outbox is 128 bytes. The phone serializes AppMessage sends and HTTP requests separately, with bounded message queuing.
 
 The watch retries a drop transport failure at most eight times, one second between attempts, retaining the same request counter and captured source. Immediate and asynchronous failures display Unknown. Transport retries stop on delivery acknowledgement, a matching bridge receipt, disconnect, leave, or the original watch timeout. They do not create an offline queue or extend the visual submission deadline. Once the phone receives the request, its two-minute same-UUID HTTP retry contract applies. Credential expiry stops authenticated activity but retains the local settings reconciliation loop until participation-off is acknowledged.
+
+Since watch 0.1.1, an HTTP retry receipt keeps the watch showing Sending without extending its original deadline. A definitive rate limit shows Rate Limit; another definitive rejection shows Not Sent. A rejection following an uncertain HTTP attempt remains Unknown because a previous attempt could have been accepted. Terminal receipts are persisted on the phone for two minutes and retried up to three times after AppMessage failure; acceptance retries are silent. A matching duplicate watch request or bridge restart can replay that receipt without creating another HTTP drop. Leaving or starting a new watch request invalidates the cached receipt.
 
 Pause commands `-3` (one hour) and `-2` (tomorrow at 08:00) resolve on the watch when a new revision is applied. `-1` is indefinite; `0` resumes usual settings. A retry of an already-applied revision keeps the same deadline. The acknowledgement returns the actual watch-local deadline to the phone.
 
