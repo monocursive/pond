@@ -1,0 +1,33 @@
+# First implementation
+
+This is a local prototype of the first-release contract, not a public release. Source, build, automated verification, emulator rendering, physical comfort evidence, and deployment are distinct milestones.
+
+## Included
+
+- Native C watchface for all seven SDK targets, using the original Pond pixel glyphs, monochrome/colour rendering, round/rectangular layouts, 12/24-hour time, local generated pebble presets and short ripple animation.
+- Sample-based experimental double-tap classifier, two-second local cancellation, vibration contamination rejection and settling suppression. Accelerometer sampling runs only while joined and the watchface is active.
+- Watch-owned silent/gentle policy, quiet hours, all-day quiet, pause, reduced motion, persistent four-per-day/90-minute incoming allowance, deduplication, first-snapshot suppression, conservative clock handling and persist-before-vibrate reservation. Missing budget starts with 24 hours of silence, including direct feedback. Aplite's SDK quiet-time API always returns false; only Pond's own quiet policy can be enforced there.
+- Plain ES5 PebbleKit JS with explicit join, scoped credentials, cursor polling, backoff, non-overlapping HTTP, two-minute same-ID retry, no old-drop outbox, matching settings acknowledgements, and leave/deletion reconciliation.
+- A responsive settings page served by Phoenix: no frontend framework, build pipeline, external fonts, analytics or third-party scripts. Browser crypto is required for joining; the bridge never uses the Pebble account or watch token.
+- Phoenix HTTP endpoints, Ecto migrations/PostgreSQL persistence, immutable minute bundles, recipient-specific eligibility, transactional limits, idempotent bootstrap/deletion, retention cleanup, and one supervised aggregator. Explicit SQL stays in the Pond context so the locking and aggregation are visible.
+- Ephemeral ingress throttling: ten bootstrap requests per IP/minute, 180 API requests per IP/minute, 60 requests per credential/minute; 3,000 combined throttle checks per minute globally. IP rejections short-circuit credential checks; GET /health remains outside the limiter. Default capacity is 10,000 installations. Unknown-identity deletion tombstones are capped at 100,000; existing installations can still leave at that cap. Limits are coarse availability bounds, not identity proof. Behind a proxy, configure an edge limiter and trusted client-IP handling before public traffic; forwarded headers are deliberately not trusted automatically.
+
+## Local evidence
+
+Run the commands in the root README to reproduce tests and builds. `server/test/` covers the HTTP API, the two-installation drop/ripple/echo loop, self-only/unissued/expired echo context, bootstrap/deletion, retention, cursor ownership, rolling limits and concurrent transactions across independent PostgreSQL connections. `watch/test/` covers bridge retries/reconnects/settings/deletion and the actual pure C comfort/gesture modules.
+
+Review regressions also cover rotating bearer values behind an IP rejection, health during quota exhaustion, vibration on the first accelerometer sample, gesture recovery after backward timestamps, busy/immediately failed/asynchronously failed drop transports with unchanged IDs and bounded retries, credential-expiry settings reconciliation, canonical origins, and selected-service settings with credential-free recovery fallback. The transport host test compiles the actual drop outbox against a small Pebble API stub; SDK builds compile it against the real API. These checks do not simulate radio delivery or physical motor motion.
+
+All seven SDK targets compile. Emulator screenshots cover the five native display layouts: [Aplite](evidence/aplite.png), [Basalt](evidence/basalt.png), [Chalk](evidence/chalk.png), [Emery](evidence/emery.png), [Gabbro](evidence/gabbro.png). These do not prove physical readability, gesture reliability, haptic feel, mobile background execution, or battery impact. The Pebble SDK 4.33.1 build produces `watch/build/watch.pbw`; Aplite's binary is well below 24 KiB, but binary size does not prove runtime heap headroom.
+
+A production Mix release builds locally, and its migration command passes against `127.0.0.1`. The bundled runtime stalled resolving `localhost` on this Mac, so deployment validation must include DNS and database connectivity. It has not been deployed. The local Compose file provisions only PostgreSQL; run Phoenix with Mix. No Redis, umbrella app, package workspace, task runner, web bundler or background watch worker is required.
+
+## Remaining public-release gates
+
+- Two physical watches and two phones complete the loop across locked/backgrounded iOS and Android, Bluetooth loss, relaunches, and service outages. Validate Authorization stripping on cross-origin redirects in each supported PebbleKit JS runtime.
+- Tune the 1,800 mg sample-delta threshold, 160 ms peak spacing, 600 ms double-tap interval, and 2.5-second motor settling interval from actual measurements. Current synthetic classifier tests cannot establish false-positive rates or battery cost.
+- Record the spec's gesture, delivery and 48-hour battery experiments. Test firmware quiet mode, time changes and unknown clock/budget behavior on actual targets. Physical support remains unclaimed for all platforms.
+- Review settings under larger text/assistive technology, phone/watch timezone differences, system overlays and firmware text/clock preferences. Phone settings use system typography rather than bundling the Figma fonts.
+- Deploy TLS and real credentials; replace the loopback development origin in `watch/src/pkjs/env.js`. Do not distribute a community build pointing at localhost. No community endpoint has been assumed or published.
+- Configure and validate encrypted seven-day backups, seven-day sanitised operational logs and restore/deletion handling. Before restoring traffic, merge the latest eight-day deletion tombstones from outside the restored snapshot and delete matching installations (cascades remove linked records), then run cleanup. A stale backup alone is insufficient. This operational restore procedure is not automated or yet proven.
+- Finish the public licence decision/asset review, contribution/support documents, deployment example, accessibility/comfort beta and store materials from the release spec. No licence, deployment, publication or compatibility claim is implied by this implementation.

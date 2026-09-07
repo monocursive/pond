@@ -4,7 +4,7 @@
 
 **Release:** first public release, preceded by a private comfort beta.
 
-**Status:** proposed implementation contract. No implementation, physical validation, deployment, or publication is implied. Numeric comfort and battery thresholds below are proposed engineering/playtest gates, not established physiological limits.
+**Status:** implementation contract. A first local prototype now exists; see [implementation status](IMPLEMENTATION.md) for evidence and remaining work. Physical validation, deployment, and publication are not yet complete. Numeric comfort and battery thresholds below are proposed engineering/playtest gates, not established physiological limits.
 
 **Related:** [North star](NORTH-STAR.md) · [Original proposal](archive/PRODUCT-SPEC-v0.2.md)
 
