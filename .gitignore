@@ -1,0 +1,10 @@
+.DS_Store
+.env
+server/_build/
+server/deps/
+server/erl_crash.dump
+watch/build/
+watch/node_modules/
+watch/.lock-waf*
+watch/.waf-*/
+watch/test/policy_test

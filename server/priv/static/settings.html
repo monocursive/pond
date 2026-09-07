@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Pond · Your comfort</title>
+    <link rel="stylesheet" href="settings.css" />
+  </head>
+  <body>
+    <main>
+      <header>
+        <span class="eyebrow">A QUIET PLACE ON YOUR WRIST</span>
+        <h1>Pond</h1>
+        <p>Drop a pebble. Share a ripple.<br />Nothing needs answering.</p>
+      </header>
+      <div class="pond" aria-hidden="true">
+        <span class="stone"></span><span class="ring"></span>
+      </div>
+      <section class="status" aria-live="polite">
+        <strong id="status">Local watchface</strong>
+        <p id="detail">
+          Join when you feel like it. Your watch works without joining.
+        </p>
+        <p id="recovery" hidden></p>
+        <button id="join" type="button">Join the pond silently</button>
+      </section>
+      <form id="settings">
+        <section>
+          <h2>Your comfort</h2>
+          <label for="mode">Incoming ripples</label
+          ><select id="mode">
+            <option value="silent">Silent — visuals only</option>
+            <option value="gentle">Gentle — occasional vibration</option>
+          </select>
+          <p class="hint">
+            At most four incoming vibrations in 24 hours, at least 90 minutes
+            apart. No catch-up after a pause. A fresh watch budget starts with
+            24 hours of silence.
+          </p>
+          <label class="check"
+            ><input type="checkbox" id="tick" /> A small tick when my drop is
+            accepted</label
+          >
+          <button type="button" class="secondary" id="preview">
+            Try one gentle tick
+          </button>
+        </section>
+        <section>
+          <h2>Room for quiet</h2>
+          <div class="time-row">
+            <label
+              >Quiet from<input
+                id="quietStart"
+                type="time"
+                required
+                value="22:00" /></label
+            ><label
+              >Until<input id="quietEnd" type="time" required value="08:00"
+            /></label>
+          </div>
+          <label class="check"
+            ><input type="checkbox" id="allDay" /> Quiet all day</label
+          >
+          <p class="hint">
+            Uses your watch’s local time. Equal start and end times turn
+            scheduled quiet hours off; “Quiet all day” silences the whole day.
+          </p>
+          <label for="pause">Pause vibrations</label
+          ><select id="pause">
+            <option value="keep">Keep current pause</option>
+            <option value="0">Resume usual settings</option>
+            <option value="hour">For one hour</option>
+            <option value="tomorrow">Until tomorrow at 08:00</option>
+            <option value="-1">Until I resume</option>
+          </select>
+          <label class="check"
+            ><input type="checkbox" id="reduced" /> Reduce motion — still
+            ripples</label
+          >
+        </section>
+        <section>
+          <h2>Your pebble</h2>
+          <label for="shape">Silhouette</label
+          ><select id="shape">
+            <option value="0">River</option>
+            <option value="1">Flat</option>
+            <option value="2">Shard</option></select
+          ><label for="palette">Colour</label
+          ><select id="palette">
+            <option value="0">Moss & teal</option>
+            <option value="1">Warm ochre</option>
+          </select>
+          <p class="hint">Always black and white on monochrome watches.</p>
+          <button id="shuffle" class="secondary" type="button">
+            Find another pebble
+          </button>
+        </section>
+        <details>
+          <summary>How Pond works</summary>
+          <p>
+            Two deliberate taps prepare a drop. Double-tap again within two
+            seconds to cancel. A drop made while a fresh shared ripple is
+            visible answers that bundle.
+          </p>
+          <p>
+            “Dropped” means the service accepted it. It does not promise that
+            another person felt it. Gestures and haptics are experimental in
+            this first build.
+          </p>
+        </details>
+        <details>
+          <summary>Privacy & service</summary>
+          <p>
+            No account, location, health data, messages, or activity analytics.
+            Your pebble and comfort settings stay on your devices.
+          </p>
+          <p>
+            Contributions and eligibility records expire after 24 hours.
+            Inactive installations expire after 30 days. Leaving deletes linked
+            live data; anonymous bundles already delivered expire naturally.
+          </p>
+          <p>
+            Operators must configure seven-day encrypted backups and sanitised
+            logs before public use. This development server does not configure
+            those automatically.
+          </p>
+          <label for="origin">Service origin</label
+          ><input
+            id="origin"
+            type="url"
+            required
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <p class="hint">
+            Use HTTPS. Localhost HTTP is for development. Leave the current pond
+            before joining another host; changing a host does not delete its old
+            data.
+          </p>
+          <button id="leave" class="danger" type="button">
+            Leave the pond
+          </button>
+        </details>
+        <p id="error" role="alert"></p>
+        <footer>
+          <button id="save" type="submit">Save comfort settings</button>
+          <p class="hint">
+            Saving closes this page. Reopen it to check the watch
+            acknowledgement. While waiting, switch away from Pond for immediate
+            quiet.
+          </p>
+        </footer>
+      </form>
+    </main>
+    <script src="settings.js"></script>
+  </body>
+</html>
