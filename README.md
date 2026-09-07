@@ -1,5 +1,7 @@
 # Pond
 
+![Pond — A little plop. A little company. A smiling river stone beside the Pebble watchface.](design/store/banners/pond-basalt-720x320.png)
+
 A little shared pond for people wearing Pebble watches.
 
 Drop a pebble. Somewhere, another wearer may feel a ripple. Nothing needs answering.
