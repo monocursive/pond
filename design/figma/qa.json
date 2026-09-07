@@ -1,0 +1,178 @@
+{
+  "phone": {
+    "textCount": 221,
+    "badFonts": [],
+    "interactiveInstances": 50,
+    "smallTargets": [],
+    "prototypeLinks": 26,
+    "brokenLinks": [],
+    "variableCount": 39,
+    "unscoped": [],
+    "frames": [
+      {
+        "id": "10:2",
+        "name": "Phone controls / Documentation",
+        "width": 1100,
+        "height": 202
+      },
+      {
+        "id": "12:2",
+        "name": "01 / Welcome",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "id": "12:472",
+        "name": "02 / Your pond",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "id": "12:513",
+        "name": "03 / Comfort \u2014 silent",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "id": "13:85",
+        "name": "04 / Comfort \u2014 gentle",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "id": "13:129",
+        "name": "06 / Gentle applied",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "id": "14:112",
+        "name": "07 / My pebble",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "id": "14:626",
+        "name": "08 / How to drop",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "id": "15:217",
+        "name": "09 / Leave the pond",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "id": "15:236",
+        "name": "10 / Connection & privacy",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "id": "15:261",
+        "name": "11 / Pause ripples",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "id": "18:239",
+        "name": "12 / Quiet hours",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "id": "18:292",
+        "name": "14 / Left the pond",
+        "width": 390,
+        "height": 844
+      },
+      {
+        "id": "20:1383",
+        "name": "Prototype / Await watch acknowledgement",
+        "width": 820,
+        "height": 844
+      },
+      {
+        "id": "20:1391",
+        "name": "Prototype / Await leave confirmations",
+        "width": 820,
+        "height": 844
+      }
+    ]
+  },
+  "palettes": {
+    "nativeArtwork": [
+      {
+        "name": "mono-144",
+        "id": "8:11",
+        "width": 144,
+        "height": 168,
+        "svgBytes": 10650,
+        "colours": []
+      },
+      {
+        "name": "colour-144",
+        "id": "8:74",
+        "width": 144,
+        "height": 168,
+        "svgBytes": 12889,
+        "colours": [
+          "#005555",
+          "#00AAAA",
+          "#AAAA55",
+          "#FFFFAA"
+        ]
+      },
+      {
+        "name": "round-180",
+        "id": "8:141",
+        "width": 180,
+        "height": 180,
+        "svgBytes": 12899,
+        "colours": [
+          "#005555",
+          "#00AAAA",
+          "#AAAA55",
+          "#FFFFAA"
+        ]
+      },
+      {
+        "name": "time2-200",
+        "id": "8:208",
+        "width": 200,
+        "height": 228,
+        "svgBytes": 14378,
+        "colours": [
+          "#005555",
+          "#00AAAA",
+          "#AAAA55",
+          "#FFFFAA"
+        ]
+      },
+      {
+        "name": "round-260",
+        "id": "8:275",
+        "width": 260,
+        "height": 260,
+        "svgBytes": 13881,
+        "colours": [
+          "#005555",
+          "#00AAAA",
+          "#AAAA55",
+          "#FFFFAA"
+        ]
+      }
+    ]
+  },
+  "finalPhoneAudit": {
+    "fonts": [
+      "IBM Plex Mono",
+      "Manrope"
+    ],
+    "targets": 62,
+    "smallTargets": [],
+    "linkedActions": 35,
+    "brokenDestinations": []
+  }
+}

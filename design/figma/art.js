@@ -1,0 +1,5 @@
+
+function raster(parent,name,w,h,predicate,key){let d="";for(let y=0;y<h;y++){let start=-1;for(let x=0;x<=w;x++){const on=x<w&&predicate(x,y);if(on&&start<0)start=x;if(!on&&start>=0){d+="M "+start+" "+y+" L "+x+" "+y+" L "+x+" "+(y+1)+" L "+start+" "+(y+1)+" Z ";start=-1;}}}const n=figma.createNodeFromSvg('<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'" viewBox="0 0 '+w+' '+h+'"><path d="'+(d||'M 0 0')+'" fill="#000000"/></svg>');created.push(...ids(n));n.name=name;for(const v of n.findAllWithCriteria({types:["VECTOR"]}))fill(v,key);parent.appendChild(n);return n;}
+function polyInside(x,y,p){let c=false;for(let i=0,j=p.length-1;i<p.length;j=i++){if(((p[i][1]>y)!=(p[j][1]>y))&&(x<(p[j][0]-p[i][0])*(y-p[i][1])/(p[j][1]-p[i][1])+p[i][0]))c=!c;}return c;}
+function polygon(parent,name,pts,key){return raster(parent,name,40,32,(x,y)=>polyInside(x+.5,y+.5,pts),key);}
+function ring(parent,w,h,key="w/water"){return raster(parent,"Pond / ripple ring",w,h,(x,y)=>{let a=(x-(w-1)/2)/(w/2),b=(y-(h-1)/2)/(h/2);let ai=(x-(w-1)/2)/(w/2-1.5),bi=(y-(h-1)/2)/(h/2-1.5);return a*a+b*b<=1&&ai*ai+bi*bi>=1;},key);}
