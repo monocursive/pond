@@ -1,5 +1,8 @@
 .DS_Store
 .env
+.kamal/secrets*
+!.kamal/secrets.example
+.bundle/
 server/_build/
 server/deps/
 server/erl_crash.dump

@@ -2,6 +2,17 @@ defmodule PondWeb.APIController do
   use Phoenix.Controller, formats: [:json]
   def health(conn, _), do: json(conn, %{status: "ok", version: 1})
 
+  def ready(conn, _) do
+    case Pond.Repo.query("SELECT 1 FROM schema_migrations LIMIT 1", [], timeout: 2_000) do
+      {:ok, %{num_rows: 1}} -> json(conn, %{status: "ready"})
+      _ -> conn |> put_status(503) |> json(%{status: "unavailable"})
+    end
+  rescue
+    _ -> conn |> put_status(503) |> json(%{status: "unavailable"})
+  catch
+    :exit, _ -> conn |> put_status(503) |> json(%{status: "unavailable"})
+  end
+
   def register(conn, %{"version" => 1} = params) when map_size(params) == 1,
     do: respond(conn, Pond.register(token(conn)))
 

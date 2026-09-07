@@ -1,6 +1,14 @@
 defmodule PondWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :pond
-  plug(Plug.Static, at: "/", from: :pond, only: ~w(settings.html settings.js settings.css))
+  plug(PondWeb.Landing)
+
+  plug(Plug.Static,
+    at: "/",
+    from: :pond,
+    only: ~w(landing settings.html settings.js settings.css)
+  )
+
+  plug(PondWeb.ClientIP)
   plug(PondWeb.Throttle)
 
   plug(Plug.Parsers,

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#fff5da">
+    <meta name="description" content="A little plop. A little company. Pond is a quiet, playful Pebble watchface for sending a tiny hello into the world. A community project, growing slowly.">
+    <title>Pond — A little plop. A little company.</title>
+    <link rel="icon" href="/landing/icon.png" type="image/png">
+    <link rel="stylesheet" href="/landing/pond.css">
+    <script src="/landing/pond.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to the pond</a>
+    <header class="site-header wrap">
+      <a class="wordmark" href="#" aria-label="Pond home">pond<span class="logo-dot" aria-hidden="true">✳</span></a>
+      <nav aria-label="Main navigation">
+        <a href="#how-it-works">What's this?</a>
+        <a class="nav-source" href="https://github.com/monocursive/pond">Peek at the code <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section class="hero wrap" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="little-dot" aria-hidden="true"></span> A little something for your Pebble</p>
+          <h1 id="hero-title">A little plop.<br>A little<br><em>company.</em></h1>
+          <p class="hero-description">Sometimes, “I'm here” is plenty.<br>Drop a pebble from your wrist. Somewhere, another wearer might feel a little ripple.</p>
+          <div class="hero-actions">
+            <button class="button primary plop-button" type="button" disabled>Give it a plop <span aria-hidden="true">↘</span></button>
+            <span class="hand-note">go on. it's a very good rock.</span>
+          </div>
+          <p class="demo-disclaimer">A little browser demo. No real wrists will be disturbed.</p>
+          <button id="motion-toggle" type="button" aria-pressed="false" hidden>Pause motion</button>
+          <noscript><p class="demo-disclaimer">The interactive pond needs JavaScript. The real watch screenshots and the story below don't.</p></noscript>
+        </div>
+
+        <div class="pond-scene" id="pond-scene" aria-label="An illustrated smiling stone and a real Pond watchface screenshot">
+          <span class="scene-spark spark-one" aria-hidden="true">✳</span>
+          <span class="scene-spark spark-two" aria-hidden="true">✧</span>
+          <p class="stone-note hand-note">small rock.<br>big “hey, you.”</p>
+          <div class="water" aria-hidden="true"><i></i><i></i><i></i></div>
+          <img class="hero-stone" src="/landing/stone.svg" width="144" height="144" alt="">
+          <span class="plop-word" aria-hidden="true">plop!</span>
+          <div class="watch hero-watch">
+            <span class="watch-button" aria-hidden="true"></span>
+            <div class="watch-display">
+              <img class="watch-still" src="/landing/watch-still.png" width="144" height="168" alt="Pond on Pebble Time: a large pixel clock, smiling stone, and Still status.">
+              <img class="watch-ripple" src="/landing/watch-ripple.png" width="144" height="168" alt="Pond on Pebble Time with ripples and Ripple status." hidden>
+            </div>
+          </div>
+          <p class="watch-note">Actual watch pixels.<br>Considerably cuter on a wrist.</p>
+          <p class="pond-caption" id="demo-status" role="status" aria-live="polite">The pond is minding its own business.</p>
+        </div>
+      </section>
+
+      <div class="pond-rule" aria-hidden="true"><span>less ping.</span><span>more pond.</span><span>less ping.</span><span>more pond.</span><span>less ping.</span><span>more pond.</span></div>
+
+      <section class="how-section wrap" id="how-it-works" aria-labelledby="how-title">
+        <div class="section-heading"><p class="eyebrow">THE ENTIRE BIG IDEA</p><h2 id="how-title">An extremely small<br>social network.</h2><p>Two wrists. One shared pond. Zero things to keep up with.</p></div>
+        <div class="steps">
+          <article class="step">
+            <div class="step-art tap-art" aria-hidden="true"><span class="tap-pill">tap</span><span class="tap-pill">tap</span><span class="tap-star">✳</span></div>
+            <p class="step-number">01 / YOU SAY HELLO</p><h3>Double-tap.<br>Drop a pebble.</h3><p>Two deliberate taps prepare a drop. Changed your mind? Double-tap again within two seconds to cancel. Rocks understand.</p>
+          </article>
+          <article class="step">
+            <div class="step-art ripple-art" aria-hidden="true"><i></i><i></i><i></i><span>hello</span></div>
+            <p class="step-number">02 / A LITTLE RIPPLE</p><h3>Somewhere,<br>a wrist says “oh.”</h3><p>Your drop joins the shared pond. Another wearer may see a ripple, or feel a gentle buzz if they've chosen it.</p>
+          </article>
+          <article class="step">
+            <div class="step-art rest-art" aria-hidden="true"><img src="/landing/stone.svg" width="144" height="144" alt=""><span>ahhh.</span></div>
+            <p class="step-number">03 / THAT'S REALLY IT</p><h3>Carry on being<br>a person.</h3><p>No message to compose. No reply owed. Just a tiny moment of company, then back to your sandwich.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="quiet-section" aria-labelledby="quiet-title">
+        <div class="quiet-inner wrap">
+          <div class="quiet-illustration" aria-hidden="true"><span class="quiet-orbit orbit-one"></span><span class="quiet-orbit orbit-two"></span><img src="/landing/stone.svg" width="144" height="144" alt=""><span class="quiet-note hand-note">zero unread rocks</span></div>
+          <div class="quiet-copy"><p class="eyebrow">VERY LOW-MAINTENANCE COMPANY</p><h2 id="quiet-title">Nothing needs<br><em>answering.</em></h2><p>Pond starts silent. Gentle vibrations are your choice. Quiet hours, a pause button, and reduced motion make room for whatever kind of day you're having.</p><p class="quiet-promise">No streaks. No followers. No “where have you been?”<br>The rock is simply happy to see you.</p><a class="text-link" href="https://github.com/monocursive/pond/blob/main/docs/FIRST-RELEASE.md">Read our small, quiet promises <span aria-hidden="true">↗</span></a></div>
+        </div>
+      </section>
+
+      <section class="community-section wrap" id="community" aria-labelledby="community-title">
+        <p class="eyebrow">A LOVE LETTER TO THE PEBBLE COMMUNITY</p><h2 id="community-title">Small watch.<br>Lovely weird people.<br><em>This one's for you.</em></h2>
+        <p>Created by <a class="creator-link" href="https://monocursive.com">Monocursive</a>, as a little gift to the Pebble community.<br>Made with care, code you can peek at, and a fondness for things<br class="desktop-break"> that don't need to become the next big thing.</p>
+        <div class="release-note"><span class="little-dot" aria-hidden="true"></span> Growing slowly · prototype in progress</div>
+        <p class="release-detail">The watchface is taking shape. Real-watch testing and a public release are still ahead.</p>
+        <a class="button primary" href="https://github.com/monocursive/pond">Come make a little splash <span aria-hidden="true">↗</span></a>
+        <p class="community-footnote">Builders, curious people, rock enthusiasts. All welcome.</p>
+      </section>
+    </main>
+
+    <footer class="site-footer wrap"><a class="wordmark" href="#" aria-label="Pond, back to top">pond</a><p>Created by <a class="creator-link" href="https://monocursive.com">Monocursive</a>.<br><span>Made with love. And a suspicious amount of Elixir.</span></p><a href="https://github.com/monocursive/pond">GitHub ↗</a></footer>
+  </body>
+</html>

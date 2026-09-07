@@ -11,6 +11,7 @@ defmodule PondWeb.Throttle do
 
   # Liveness must remain observable even when the API allowance is exhausted.
   def call(%{method: "GET", request_path: "/health"} = conn, _), do: conn
+  def call(%{method: "GET", request_path: "/ready"} = conn, _), do: conn
 
   def call(conn, _) do
     category = if conn.request_path == "/v1/installations", do: :join, else: :api

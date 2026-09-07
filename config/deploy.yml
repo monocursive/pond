@@ -1,0 +1,66 @@
+service: pond
+image: pond
+minimum_version: 2.12.0
+servers:
+  web:
+    - pond.monocursive.com
+ssh:
+  user: ubuntu
+registry:
+  server: localhost:5555
+builder:
+  arch: amd64
+  remote: ssh://ubuntu@pond.monocursive.com
+  context: .
+  dockerfile: server/Dockerfile
+proxy:
+  # kamal-proxy access logs include client IPs; don't persist them.
+  run:
+    log_max_size: ""
+    options:
+      log-driver: none
+  host: pond.monocursive.com
+  ssl: true
+  forward_headers: false
+  app_port: 4000
+  healthcheck:
+    path: /ready
+    interval: 3
+    timeout: 3
+  buffering:
+    max_request_body: 8192
+  logging:
+    request_headers: []
+    response_headers: []
+env:
+  clear:
+    PHX_HOST: pond.monocursive.com
+    PORT: 4000
+    TRUST_KAMAL_PROXY: "true"
+  secret:
+    - DATABASE_URL
+    - SECRET_KEY_BASE
+accessories:
+  db:
+    image: postgres:17-alpine
+    host: pond.monocursive.com
+    env:
+      clear:
+        POSTGRES_USER: pond
+        POSTGRES_DB: pond_prod
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql/data
+    options:
+      health-cmd: pg_isready -U pond -d pond_prod
+      health-interval: 5s
+      health-timeout: 3s
+      health-retries: 10
+deploy_timeout: 120
+drain_timeout: 30
+logging:
+  driver: json-file
+  options:
+    max-size: 10m
+    max-file: 7

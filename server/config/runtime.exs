@@ -5,6 +5,7 @@ if config_env() != :test && System.get_env("DATABASE_URL") do
 end
 
 if config_env() == :prod do
+  config :pond, :trust_kamal_proxy, System.get_env("TRUST_KAMAL_PROXY") == "true"
   config :pond, Pond.Repo, url: System.fetch_env!("DATABASE_URL"), pool_size: 10
 
   config :pond, PondWeb.Endpoint,

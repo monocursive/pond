@@ -1,6 +1,6 @@
 # First implementation
 
-This is a local prototype of the first-release contract, not a public release. Source, build, automated verification, emulator rendering, physical comfort evidence, and deployment are distinct milestones.
+This is a prototype of the first-release contract, not a Pebble Store release. The backend and landing page are deployed at https://pond.monocursive.com; see [deployment evidence and operations](DEPLOYMENT.md). Source, build, automated verification, emulator rendering, physical comfort evidence, and deployment are distinct milestones.
 
 ## Included
 
@@ -20,7 +20,7 @@ Review regressions also cover rotating bearer values behind an IP rejection, hea
 
 All seven SDK targets compile. The current [native screenshot sheet](../design/store/screenshots-overview.png) covers Still and Ripple on all seven platforms; older files under `evidence/` show the initial renderer. The character revision also passed emulator inspection of 12-hour time, all three shapes, both palettes, Quiet and Paused on Basalt and Chalk, plus all 12 bridge tests and three native behaviour suites. These do not prove physical readability, gesture reliability, haptic feel, mobile background execution, or battery impact. The Pebble SDK 4.33.1 build produces `watch/build/watch.pbw`; Aplite's binary is well below 24 KiB, but binary size does not prove runtime heap headroom.
 
-A production Mix release builds locally, and its migration command passes against `127.0.0.1`. The bundled runtime stalled resolving `localhost` on this Mac, so deployment validation must include DNS and database connectivity. It has not been deployed. The local Compose file provisions only PostgreSQL; run Phoenix with Mix. No Redis, umbrella app, package workspace, task runner, web bundler or background watch worker is required.
+A production Mix release builds locally and inside the deployed Linux image. The VPS resolves the private database hostname and runs migrations successfully. Local development still uses Compose only for PostgreSQL and Mix for Phoenix; production uses Kamal. No Redis, umbrella app, package workspace, task runner, web bundler or background watch worker is required.
 
 ## Remaining public-release gates
 
@@ -28,6 +28,6 @@ A production Mix release builds locally, and its migration command passes agains
 - Tune the 1,800 mg sample-delta threshold, 160 ms peak spacing, 600 ms double-tap interval, and 2.5-second motor settling interval from actual measurements. Current synthetic classifier tests cannot establish false-positive rates or battery cost.
 - Record the spec's gesture, delivery and 48-hour battery experiments. Test firmware quiet mode, time changes and unknown clock/budget behavior on actual targets. Physical support remains unclaimed for all platforms.
 - Review settings under larger text/assistive technology, phone/watch timezone differences, system overlays and firmware text/clock preferences. Phone settings use system typography rather than bundling the Figma fonts.
-- Deploy TLS and real credentials; replace the loopback development origin in `watch/src/pkjs/env.js`. Do not distribute a community build pointing at localhost. No community endpoint has been assumed or published.
+- Completed 2026-09-07: Kamal deployment with HTTPS, production secrets, private Postgres, migrations, readiness, and the public origin in the rebuilt watch bundle. Live synthetic clients completed registration, drop, ripple, echo and deletion. Physical phone/watch delivery remains unverified.
 - Configure and validate encrypted seven-day backups, seven-day sanitised operational logs and restore/deletion handling. Before restoring traffic, merge the latest eight-day deletion tombstones from outside the restored snapshot and delete matching installations (cascades remove linked records), then run cleanup. A stale backup alone is insufficient. This operational restore procedure is not automated or yet proven.
-- Finish the public licence decision/asset review, contribution/support documents, deployment example, accessibility/comfort beta and store materials from the release spec. No licence, deployment, publication or compatibility claim is implied by this implementation.
+- MIT licence credits Monocursive, and deployment documentation and store artwork are prepared. Finish contribution/support and privacy information, asset review, the accessibility/comfort beta and store submission. Physical compatibility remains unclaimed.

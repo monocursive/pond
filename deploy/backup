@@ -1,0 +1,12 @@
+#!/bin/bash
+set -euo pipefail
+umask 077
+exec 9>/var/lock/pond-backup.lock
+flock -n 9 || exit 0
+destination=/var/backups/pond
+stamp=$(date -u +%Y%m%dT%H%M%SZ)
+trap 'rm -f "$destination/.pending.age"' EXIT
+docker exec pond-db pg_dump -U pond -d pond_prod -Fc |
+  age -R /etc/pond/backup-recipient.txt -o "$destination/.pending.age"
+mv "$destination/.pending.age" "$destination/$stamp.dump.age"
+find "$destination" -type f -name '*.dump.age' -mtime +7 -delete

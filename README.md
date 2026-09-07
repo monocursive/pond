@@ -6,7 +6,7 @@ A little shared pond for people wearing Pebble watches.
 
 Drop a pebble. Somewhere, another wearer may feel a ripple. Nothing needs answering.
 
-Pond is a community gift by Michaël / Monocursive, intended to be free and open source. This monorepo now contains the first implementation: a **C watchface**, **PebbleKit JS bridge**, and **Elixir / Phoenix server** backed by PostgreSQL. It is a local prototype; physical testing and public deployment are still ahead.
+Pond is a community gift by [Monocursive](https://monocursive.com), free and open source under the [MIT licence](LICENSE). This monorepo contains a **C watchface**, **PebbleKit JS bridge**, and **Elixir / Phoenix server** backed by PostgreSQL. The service and landing page are live at [pond.monocursive.com](https://pond.monocursive.com); physical testing and the Pebble Store release are still ahead.
 
 ## Run the server
 
@@ -23,6 +23,8 @@ mix phx.server
 
 Phoenix listens at [localhost:4040](http://127.0.0.1:4040/health). The [settings page](http://127.0.0.1:4040/settings.html) can be previewed in a browser; saving/joining returns to the Pebble app through its settings webview. PostgreSQL is isolated on loopback port 55432 with development-only credentials. An existing PostgreSQL installation works too: set `DATABASE_URL` for development. Tests use the separate `pond_test` database on the same local server.
 
+The [landing page](http://127.0.0.1:4040/) introduces Pond with an interactive, browser-only plop demo. Its source lives in `server/priv/static/landing/`: plain HTML, CSS, JavaScript, and local artwork/fonts, with no frontend build. The demo respects reduced motion and never sends drops to the service.
+
 ## Build the watchface
 
 From the repository root:
@@ -33,7 +35,7 @@ pebble build
 pebble install --emulator aplite
 ```
 
-The bundle is `watch/build/watch.pbw`, compiled for Aplite, Basalt, Chalk, Diorite, Flint, Emery and Gabbro. Use `pebble install --phone <phone-ip>` for a physical phone with its developer connection enabled. Before physical use, set `watch/src/pkjs/env.js` to your reachable **HTTPS origin** and rebuild. The checked-in loopback URL is for local development; `127.0.0.1` on a phone points to the phone itself.
+The bundle is `watch/build/watch.pbw`, compiled for Aplite, Basalt, Chalk, Diorite, Flint, Emery and Gabbro. Use `pebble install --phone <phone-ip>` for a physical phone with its developer connection enabled. The default origin in `watch/src/pkjs/env.js` is `https://pond.monocursive.com`. Self-hosters should change it and rebuild; local development can select another origin in settings. `127.0.0.1` on a phone points to the phone itself.
 
 The face starts locally, unjoined and silent. Open Pond's settings in the Pebble mobile app to join. Save settings, then reopen to inspect the watch acknowledgement. Two deliberate taps prepare a drop; another double-tap within two seconds cancels it. Gesture thresholds remain experimental. Switching away from Pond stops its watch-side activity.
 
@@ -70,7 +72,7 @@ _build/prod/rel/pond/bin/pond eval 'Pond.Release.migrate()'
 _build/prod/rel/pond/bin/pond start
 ```
 
-Migrations must run before starting the server. Backup/deletion restoration, hosting logs and physical comfort gates must be verified before public operation. This repository has not been deployed.
+The VPS uses Kamal with migrations before startup and database readiness before traffic switching. See [deployment and backup operations](docs/DEPLOYMENT.md) for configuration, commands, verified live checks, and remaining offsite-backup and physical-device gates.
 
 ## Product and design
 

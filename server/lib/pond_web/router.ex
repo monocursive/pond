@@ -8,6 +8,7 @@ defmodule PondWeb.Router do
   scope "/", PondWeb do
     pipe_through(:api)
     get("/health", APIController, :health)
+    get("/ready", APIController, :ready)
     post("/v1/installations", APIController, :register)
     post("/v1/drops", APIController, :drop)
     get("/v1/pond", APIController, :pond)

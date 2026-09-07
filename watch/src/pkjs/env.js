@@ -1,2 +1,2 @@
-/* Development default. Set this to your HTTPS origin before sharing a build. */
-exports.service = "http://127.0.0.1:4040";
+/* Public Pond service. Local development can select another origin in settings. */
+exports.service = "https://pond.monocursive.com";

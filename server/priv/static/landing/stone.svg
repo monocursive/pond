@@ -1,0 +1,11 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="144" height="144" viewBox="0 0 144 144" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Pond / The little river stone">
+<path id="Loose-outer-ripple" d="M34 96C8 103 18 116 69 119C107 122 132 111 120 103M115 97L110 95" stroke="#70B9A6" stroke-width="3.5" stroke-linecap="round"/>
+<path id="Near-ripple" d="M44 101C37 106 56 111 78 110C98 110 110 104 99 101" stroke="#FFF1C7" stroke-width="3.5" stroke-linecap="round"/>
+<path id="River-stone" d="M37 57C43 42 57 33 70 35L94 42C103 46 108 56 104 68L96 81C91 90 78 93 64 89L44 84C32 81 29 69 37 57Z" fill="#E4B96F"/>
+<path id="Sunlit-top" d="M37 57C43 42 57 33 70 35L94 42C101 45 103 48 104 52C82 45 58 49 35 67L37 57Z" fill="#FFF1C7"/>
+<path id="Little-shadow" d="M96 81C91 90 78 93 64 89L44 84C38 82 34 78 33 73C53 85 78 86 101 73L96 81Z" fill="#BD864B"/>
+<path id="Quiet-eyes" d="M55 63V67M78 60V64" stroke="#163F39" stroke-width="4.5" stroke-linecap="round"/>
+<path id="Small-smile" d="M64 75C68 78.3333 72 77.6667 76 73" stroke="#163F39" stroke-width="3" stroke-linecap="round"/>
+</g>
+</svg>

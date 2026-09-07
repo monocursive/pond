@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+# Migration errors stop this container before Kamal switches any traffic.
+/app/bin/pond eval 'Pond.Release.migrate()'
+exec /app/bin/pond start
