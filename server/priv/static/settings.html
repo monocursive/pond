@@ -35,16 +35,19 @@
           </select>
           <p class="hint">
             At most four incoming vibrations in 24 hours, at least 90 minutes
-            apart. No catch-up after a pause. A fresh watch budget starts with
-            24 hours of silence.
+            apart. No catch-up after a pause. Incoming ripples stay silent for
+            the first 24 hours. With Pond 0.1.3 or later, previews and your
+            optional confirmation tick work immediately in Gentle mode, outside
+            quiet hours and pauses.
           </p>
           <label class="check"
             ><input type="checkbox" id="tick" /> A small tick when my drop is
             accepted</label
           >
-          <button type="button" class="secondary" id="preview">
+          <button type="button" class="secondary" id="preview" aria-describedby="previewHint">
             Try one gentle tick
           </button>
+          <p class="hint" id="previewHint" aria-live="polite"></p>
         </section>
         <section>
           <h2>Room for quiet</h2>
@@ -99,8 +102,10 @@
         <details>
           <summary>How Pond works</summary>
           <p>
-            Two deliberate taps prepare a drop. Double-tap again within two
-            seconds to cancel. A drop made while a fresh shared ripple is
+            Try two short, quick wrist twists—a quick back-and-forth motion—to
+            prepare a drop. It feels more like a wrist twist than a screen tap
+            in this build. Repeat the gesture within two seconds to cancel.
+            Pond detects motion, not screen touches; no need to hit the glass. A drop made while a fresh shared ripple is
             visible answers that bundle.
           </p>
           <p>

@@ -1,5 +1,7 @@
 # Pond — Product Spec
 
+> Historical draft, preserved as originally written. Its “double-tap” wording is not current usage guidance. In the released build, try two short, quick wrist twists (a back-and-forth motion), then repeat within two seconds to cancel. Pond detects accelerometer motion, not screen touches. See the [current gesture contract](../FIRST-RELEASE.md#4-gesture-and-contribution-contract) for current behaviour; other requirements below may also have changed.
+
 **Version** 0.2 (draft) · **Date** 2026-09-07 · **Owner** Michaël / Monocursive · **Status** for discussion
 
 *Changes in 0.2: name confirmed as Pond; "Tide" renamed "Rain" throughout; new §2.1 on naming; rain haptic pattern and face treatment revised.*

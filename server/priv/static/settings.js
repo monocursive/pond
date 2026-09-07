@@ -59,12 +59,19 @@
   if (!s.joined) el("save").textContent = "Save local settings";
   el("mode").disabled = !s.joined;
   function previewState() {
+    var hint = "";
+    if (!s.joined) hint = "Join the pond to try a tick.";
+    else if (el("mode").value !== "gentle")
+      hint = "Choose Gentle mode, save, then reopen settings to try a tick.";
+    else if (!s.gentle || view.applied !== s.revision)
+      hint = "Save your settings and wait for the watch to apply them, then reopen.";
+    else if (!view.canPreview)
+      hint = "Your watch has not enabled a preview. Check Pond's quiet hours and pause, and the watch's Quiet Time. Reconnect and reopen settings to refresh its status.";
+    else hint = "One short tick, only when your watch allows it. No queued vibration.";
+    el("previewHint").textContent = hint;
     el("preview").disabled =
-      !s.joined ||
-      !view.canPreview ||
-      !s.gentle ||
-      el("mode").value !== "gentle" ||
-      view.applied !== s.revision;
+      !s.joined || !view.canPreview || !s.gentle ||
+      el("mode").value !== "gentle" || view.applied !== s.revision;
   }
   previewState();
   el("mode").onchange = previewState;

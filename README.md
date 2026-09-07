@@ -6,7 +6,7 @@ A little shared pond for people wearing Pebble watches.
 
 Drop a pebble. Somewhere, another wearer may feel a ripple. Nothing needs answering.
 
-Pond is a community gift by [Monocursive](https://monocursive.com), free and open source under the [MIT licence](LICENSE). This monorepo contains a **C watchface**, **PebbleKit JS bridge**, and **Elixir / Phoenix server** backed by PostgreSQL. The service and landing page are live at [pond.monocursive.com](https://pond.monocursive.com); physical testing and the Pebble Store release are still ahead.
+Pond is a community gift by [Monocursive](https://monocursive.com), free and open source under the [MIT licence](LICENSE). This monorepo contains a **C watchface**, **PebbleKit JS bridge**, and **Elixir / Phoenix server** backed by PostgreSQL. The service and landing page are live at [pond.monocursive.com](https://pond.monocursive.com); an early release is available in the [Pebble Store](https://apps.repebble.com/9101f10632be4625b5db4655). Physical comfort and battery testing are ongoing.
 
 ## Run the server
 
@@ -37,7 +37,9 @@ pebble install --emulator aplite
 
 The bundle is `watch/build/watch.pbw`, compiled for Aplite, Basalt, Chalk, Diorite, Flint, Emery and Gabbro. Use `pebble install --phone <phone-ip>` for a physical phone with its developer connection enabled. The default origin in `watch/src/pkjs/env.js` is `https://pond.monocursive.com`. Self-hosters should change it and rebuild; local development can select another origin in settings. `127.0.0.1` on a phone points to the phone itself.
 
-The face starts locally, unjoined and silent. Open Pond's settings in the Pebble mobile app to join. Save settings, then reopen to inspect the watch acknowledgement. Two physical taps on the watch prepare a drop; another double-tap within two seconds cancels it. This uses the accelerometer, not touchscreen input. Version 0.1.1 lowers the threshold after Time 2 feedback; gesture comfort and accidental triggers still need physical testing. Switching away from Pond stops its watch-side activity. Wait at least 10 seconds between drops (100 maximum in a rolling day). The watch distinguishes `RATE LIMIT` and `NOT SENT` from `UNKNOWN`, which means acceptance could not be confirmed.
+The face starts locally, unjoined and silent. Open Pond's settings in the Pebble mobile app to join. Save settings, then reopen to inspect the watch acknowledgement. To prepare a drop, try two short, quick wrist twists—a quick back-and-forth motion. In the current build, this feels more like a wrist twist than a tap on the screen. Repeat the gesture within two seconds to cancel. Pond detects motion with the accelerometer and does not read screen touches, so there is no need to hit the glass. This guidance comes from Time 2 feedback; gesture comfort and accidental triggers still need physical testing across models. Switching away from Pond stops its watch-side activity. Wait at least 10 seconds between drops (100 maximum in a rolling day). The watch distinguishes `RATE LIMIT` and `NOT SENT` from `UNKNOWN`, which means acceptance could not be confirmed.
+
+In watch version 0.1.3 and later, Gentle mode allows an immediate preview and optional accepted-drop tick outside quiet hours and pauses. The initial 24-hour hold and four-per-day/90-minute allowance apply only to incoming ripples. Save settings and reopen them after the watch acknowledges the change; previews also require a trusted watch clock and service sync.
 
 ## Check the implementation
 

@@ -1,5 +1,7 @@
 # Pond watchface
 
+After joining through the Pebble phone app settings, try two short, quick wrist twists (a quick back-and-forth motion) to prepare a drop. Repeat the gesture within two seconds to cancel. In this build, the gesture feels more like a wrist twist than a screen tap: Pond uses accelerometer motion, not touchscreen input. There is no need to hit the glass. Recognition is experimental and may vary between wearers and watch models.
+
 Run `pebble build` here to compile all seven targets. Install the bundle with `pebble install --emulator aplite` or a phone developer connection.
 
 See the [root setup guide](../README.md), [protocol](../docs/PROTOCOL.md), and [implementation status](../docs/IMPLEMENTATION.md) for configuration, tests and physical-device gates. Set the service origin in `src/pkjs/env.js` before a real-phone build.

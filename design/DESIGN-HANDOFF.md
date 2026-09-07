@@ -61,7 +61,7 @@ The editable component families are Pond / Pebble, Pond / Watchface 144, Pond / 
 - **Paused / Quiet:** suppress haptics according to pause or quiet-hour policy.
 - **Reduced motion:** static recent-ripple marker carries the same information.
 
-The native watch screens have no touch or custom button targets. The accelerometer gesture is proposed, not validated by Figma. Tap events alone do not expose magnitude; real samples and motor-settling handling require physical testing. [Accelerometer documentation](https://developer.repebble.com/guides/events-and-services/accelerometer/).
+The native watch screens have no touch or custom button targets. Current usage guidance is two short, quick wrist twists (a back-and-forth motion), based on Time 2 feedback. Repeat within two seconds to cancel. This is accelerometer motion, not a screen tap; gesture recognition is experimental and cannot be validated by Figma. Tap events alone do not expose magnitude; real samples and motor-settling handling require physical testing. [Accelerometer documentation](https://developer.repebble.com/guides/events-and-services/accelerometer/).
 
 ## Phone experience
 

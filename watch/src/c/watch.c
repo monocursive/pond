@@ -83,9 +83,9 @@ static void send(int type, int key, uint32_t value) {
     time_t now = time(NULL);
     dict_write_int32(out, MESSAGE_KEY_PauseUntil, settings.pause_until);
     dict_write_uint8(out, MESSAGE_KEY_Preview,
-                     trusted_time && now >= budget.hold_until &&
-                         policy_direct(&settings, now, minute_now(now),
-                                       quiet_time_is_active()));
+                     policy_haptic(&settings, &budget, now, minute_now(now),
+                                   quiet_time_is_active(),
+                                   trusted_time && clock_is_timezone_set(), false));
   }
   app_message_outbox_send();
 }
@@ -98,14 +98,12 @@ static void animate(void *data) {
 }
 static void vibrate(int kind) {
   time_t now = time(NULL);
-  if (!trusted_time || now < budget.hold_until ||
+  if (!trusted_time ||
       !policy_check_time(&budget, now, clock_is_timezone_set()) ||
-      !policy_direct(&settings, now, minute_now(now), quiet_time_is_active()))
+      !policy_haptic(&settings, &budget, now, minute_now(now),
+                     quiet_time_is_active(), trusted_time, kind != 0))
     return;
   if (kind != 0) {
-    if (!policy_incoming(&settings, &budget, now, minute_now(now),
-                         quiet_time_is_active()))
-      return;
     policy_reserve(&budget, now);
     if (!persist_budget()) {
       trusted_time = false;

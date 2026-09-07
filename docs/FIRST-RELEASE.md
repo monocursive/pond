@@ -70,9 +70,9 @@ Fresh silent activity may update the display at most once per minute. Haptic eli
 
 ## 4. Gesture and contribution contract
 
-### Proposed gesture
+### Current gesture (experimental)
 
-Two deliberate taps within 600 ms begin a drop. A second recognised double-tap during the following two seconds cancels it locally. There is no cancellation vibration. Only send after the local cancellation interval; the service does not need a two-second holding queue.
+Describe the wearer action as two short, quick wrist twists—a quick back-and-forth motion. Time 2 feedback suggests this feels more like a wrist twist than a screen tap. Pond uses the accelerometer and does not read touchscreen input; users should not need to hit the glass. The current classifier detects two acceleration peaks within 600 ms, not rotation itself, so this wording does not claim a dedicated twist recogniser. Repeating the recognised gesture during the following two seconds cancels it locally. There is no cancellation vibration. Only send after the local cancellation interval; the service does not need a two-second holding queue.
 
 This timing is a prototype value. Magnitude gating requires acceleration samples because the platform tap callback exposes only axis and direction. Sampling, dominant-axis assumptions, and battery cost must be validated across supported devices. Reject samples contaminated by vibration and suppress gesture recognition during Pond haptics plus a measured settling interval.
 
@@ -80,7 +80,7 @@ No long-shake mute gesture ships in this release: it would add another motion cl
 
 ### Drop or echo
 
-At the first recognised double-tap, capture the most recent live bundle presented on this watch, if it is no more than two minutes old and contains a contribution by another installation. This includes a ripple presented silently. If eligible, the contribution is an echo of that bundle; otherwise it is a plain drop.
+At the first recognised wrist-motion gesture, capture the most recent live bundle presented on this watch, if it is no more than two minutes old and contains a contribution by another installation. This includes a ripple presented silently. If eligible, the contribution is an echo of that bundle; otherwise it is a plain drop.
 
 There is no countdown or reward for speed. The two-minute limit prevents replying to stale context. It does not restrict when a wearer may make a new drop.
 
@@ -107,7 +107,7 @@ The watch evaluates current local policy immediately before playing any pattern.
 | Quiet hours | Default 22:00–08:00 local; overrides incoming, confirmations, and previews |
 | Pause | Suppresses incoming haptics immediately once applied on watch; no backlog on expiry |
 | System quiet mode | Suppress all Pond haptics when detectable; capability and behaviour must be tested for each supported firmware |
-| Missing policy, budget, or reliable time | Suppress haptics until state is trustworthy; initialise an unknown incoming budget with a conservative 24-hour hold |
+| Missing policy, budget, or reliable time | Suppress haptics until settings and time are trustworthy. An unknown incoming budget imposes a conservative 24-hour hold on unsolicited ripples only; explicit previews and opt-in accepted-drop ticks remain available |
 | Restart, reconnect, face relaunch | Preserve budget; initialise current state silently; never replay pending haptics |
 | Echo answers | Share the four-presentation allowance; never create an additional interrupt channel |
 | Accepted-drop tick | Opt-in, only in Gentle mode, once per newly accepted request and within submission limits; no delayed tick after a reconnect |

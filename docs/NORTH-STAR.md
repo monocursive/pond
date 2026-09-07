@@ -60,7 +60,7 @@ An arriving ripple may briefly expand around the pebble. Reduce-motion mode uses
 
 A validated gesture gives immediate visual feedback. The network later confirms whether the drop was accepted. Cancellation should happen locally before transmission wherever possible. Accidental motion and the watch's own vibration must not create contributions.
 
-Gesture recognition is a physical-device experiment, not a promise supplied by the tap API. If reliable recognition requires unacceptable battery use or excludes too many wrists, revise the interaction before widening release.
+The current wearer guidance is two short, quick wrist twists (a back-and-forth motion), based on Time 2 feedback. Pond detects accelerometer motion, not touchscreen input. Gesture recognition remains a physical-device experiment, not a promise supplied by a sensor API. If reliable recognition requires unacceptable battery use or excludes too many wrists, revise the interaction before widening release.
 
 ### A ripple and its echo
 

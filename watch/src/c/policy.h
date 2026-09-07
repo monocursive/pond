@@ -18,4 +18,6 @@ bool policy_direct(const Settings *s, int32_t now, int minute,
                    bool system_quiet);
 bool policy_incoming(const Settings *s, const Budget *b, int32_t now,
                      int minute, bool system_quiet);
+bool policy_haptic(const Settings *s, const Budget *b, int32_t now, int minute,
+                   bool system_quiet, bool trusted_time, bool incoming);
 void policy_reserve(Budget *b, int32_t now);

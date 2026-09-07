@@ -48,6 +48,13 @@ bool policy_incoming(const Settings *s, const Budget *b, int32_t now,
   }
   return count < 4;
 }
+bool policy_haptic(const Settings *s, const Budget *b, int32_t now, int minute,
+                   bool system_quiet, bool trusted_time, bool incoming) {
+  if (!trusted_time || !policy_direct(s, now, minute, system_quiet))
+    return false;
+  // The unknown incoming allowance must not block explicitly requested ticks.
+  return !incoming || policy_incoming(s, b, now, minute, system_quiet);
+}
 void policy_reserve(Budget *b, int32_t now) {
   for (int i = 0; i < 3; i++)
     b->incoming[i] = b->incoming[i + 1];

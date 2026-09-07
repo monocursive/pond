@@ -8,9 +8,29 @@ int main(void) {
   Budget b;
   policy_init(&b, now);
   assert(!policy_incoming(&s, &b, now, 720, false));
+  // Fresh installations can preview/confirm immediately, but incoming ripples
+  // remain held. Both the preview acknowledgement and motor use this gate.
+  assert(policy_haptic(&s, &b, now, 720, false, true, false));
+  assert(!policy_haptic(&s, &b, now, 720, false, true, true));
+  assert(!policy_haptic(&s, &b, now, 720, false, false, false));
+  assert(!policy_haptic(&s, &b, now, 720, true, true, false));
+  assert(!policy_haptic(&s, &b, now, 1320, false, true, false));
+  s.gentle = 0;
+  assert(!policy_haptic(&s, &b, now, 720, false, true, false));
+  s.gentle = 1;
+  s.joined = 0;
+  assert(!policy_haptic(&s, &b, now, 720, false, true, false));
+  s.joined = 1;
+  s.pause_until = now + 3600;
+  assert(!policy_haptic(&s, &b, now, 720, false, true, false));
+  s.pause_until = 0;
+  s.all_day = 1;
+  assert(!policy_haptic(&s, &b, now, 720, false, true, false));
+  s.all_day = 0;
   now += 86400;
   assert(policy_check_time(&b, now, true));
   assert(policy_incoming(&s, &b, now, 720, false));
+  assert(policy_haptic(&s, &b, now, 720, false, true, true));
   assert(!policy_incoming(&s, &b, now, 1320, false));
   assert(!policy_incoming(&s, &b, now, 479, false));
   assert(policy_incoming(&s, &b, now, 480, false));
@@ -32,6 +52,9 @@ int main(void) {
   }
   assert(!policy_incoming(&s, &b, now, 720, false));
   Budget restarted = b;
+  // Exhausting the incoming allowance does not consume direct feedback.
+  assert(policy_haptic(&s, &restarted, now, 720, false, true, false));
+  assert(!policy_haptic(&s, &restarted, now, 720, false, true, true));
   assert(!policy_incoming(&s, &restarted, now, 720, false));
   assert(policy_incoming(&s, &b, b.incoming[0] + 86400, 720, false));
   assert(!policy_check_time(&b, now - 100000, true));

@@ -28,7 +28,7 @@ sequenceDiagram
     participant PostgreSQL
     participant PhoneB
     participant WatchB
-    WatchA->>WatchA: Double-tap, capture source, allow 2s cancellation
+    WatchA->>WatchA: Wrist-motion gesture, capture source, allow 2s cancellation
     WatchA->>PhoneA: AppMessage 3 - request counter and source bundle
     PhoneA->>PhoenixAPI: POST /v1/drops - stable UUID and optional source
     PhoenixAPI->>PostgreSQL: Lock installation, check duplicate, limits and echo context
